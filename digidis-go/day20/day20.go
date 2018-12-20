@@ -20,7 +20,7 @@ func main() {
 	data, _ := ioutil.ReadFile("input.txt")
 	parse(data[1:len(data)-1], 0, 0, 0)
 	m := 0
-	var mk []byte
+	mk := make([]byte, 4)
 	more1k := 0
 	for k, v := range doors {
 		if v >= 1000 {
@@ -28,10 +28,10 @@ func main() {
 		}
 		if v > m {
 			m = v
-			mk = []byte(k)
+			copy(mk, k)
 		}
 	}
-	fmt.Printf("Part1 : Room %d,%d is %v doors away\n", binary.LittleEndian.Uint16(mk[0:2]), binary.LittleEndian.Uint16(mk[2:]), m)
+	fmt.Printf("Part1 : Room %d,%d is %v doors away\n", int16(binary.LittleEndian.Uint16(mk[0:2])), int16(binary.LittleEndian.Uint16(mk[2:])), m)
 	fmt.Printf("Part2 : %d rooms\n", more1k)
 }
 
